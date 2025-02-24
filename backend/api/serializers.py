@@ -1,32 +1,40 @@
+from dataclasses import fields
+from pyclbr import Class
+from pyexpat import model
+from urllib import response
 from rest_framework import serializers
-from models import LegoSet, Likes, Collection, Comment
+from .models import LegoSet #, Likes, Collection, Comment
+from django.contrib.auth.models import User
 
-def get_data_from_rebrick(id):
-    pass
-    #check if set id is in database, if yes return instance
-
-    #call the api, save the data, return it
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = ["id", "username", "password"]
+#         extra_kwargs = {"password": {"write_only": True}}
 
 class LegoSerializer(serializers.ModelSerializer):
-    model = LegoSet
-    fields = []
-
-    def to_representation(self, instance):
-        rep = instance
-
-        if not rep:
-            data = get_data_from_rebrick()
-
-        if data:
-            pass
-        
-        return data
+    class Meta:
+        model = LegoSet
+        fields = ['rebrick_id', 'title', 'theme', 'pieces']
     
-class CommentSerializer(serializers.ModelSerializer):
-    pass
+# class CommentSerializer(serializers.ModelSerializer):
+#     user = UserSerializer()
+#     lego_set = LegoSerializer()
 
-class CollectionSerializer(serializers.ModelSerializer):
-    pass
+#     class Meta:
+#         model = Comment
+#         fields = ['content', 'created_at', 'user', 'lego_set'] 
 
-class LikesSerializer(serializers.ModelSerializer):
-    pass
+# class CollectionSerializer(serializers.ModelSerializer):
+#     lego_set = LegoSerializer()
+
+#     class Meta:
+#         model = Collection
+#         fields = ['user', 'lego_set']
+
+# class LikesSerializer(serializers.ModelSerializer):
+#     lego_set = LegoSerializer()
+
+#     class Meta:
+#         model = Likes
+#         fields = ['user', 'lego_set']
